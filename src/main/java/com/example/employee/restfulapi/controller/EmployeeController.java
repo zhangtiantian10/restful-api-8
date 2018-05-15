@@ -8,10 +8,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -50,5 +47,12 @@ public class EmployeeController {
         List<Employee> employees = employeeRepository.findAllByGender("male");
 
         return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "", method = RequestMethod.POST)
+    public ResponseEntity addEmployee(@RequestBody Employee employee) {
+        employee = employeeRepository.save(employee);
+
+        return new ResponseEntity<>(employee.getId(), HttpStatus.CREATED);
     }
 }
