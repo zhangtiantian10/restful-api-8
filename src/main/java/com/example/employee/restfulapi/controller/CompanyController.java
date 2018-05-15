@@ -31,4 +31,11 @@ public class CompanyController {
 
         return new ResponseEntity<>(company, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/{id}/employees", method = RequestMethod.GET)
+    public ResponseEntity getEmployeesByCompanyId(@PathVariable Long id){
+        Company company = companyRepository.findOne(id);
+
+        return new ResponseEntity<>(company.getEmployees(), HttpStatus.OK);
+    }
 }
