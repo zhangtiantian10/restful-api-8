@@ -54,4 +54,15 @@ public class CompanyController {
 
         return new ResponseEntity(HttpStatus.CREATED);
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity updateCompany(@PathVariable Long id, @RequestBody Company company) {
+        Company oldCompany = companyRepository.findOne(id);
+        oldCompany.setCompanyName(company.getCompanyName());
+        oldCompany.setEmployeesNumber(company.getEmployeesNumber());
+
+        companyRepository.save(oldCompany);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }
