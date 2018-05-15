@@ -55,4 +55,12 @@ public class EmployeeController {
 
         return new ResponseEntity<>(employee.getId(), HttpStatus.CREATED);
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity updateEmployee(@PathVariable Long id, @RequestBody Employee employee) {
+        employee.setId(id);
+        employeeRepository.save(employee);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }
