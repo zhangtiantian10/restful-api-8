@@ -3,6 +3,9 @@ package com.example.employee.restfulapi.controller;
 import com.example.employee.restfulapi.entity.Company;
 import com.example.employee.restfulapi.repository.CompanyRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -37,5 +40,14 @@ public class CompanyController {
         Company company = companyRepository.findOne(id);
 
         return new ResponseEntity<>(company.getEmployees(), HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/page/{page}/pageSize/{pageSize}", method = RequestMethod.GET)
+    public ResponseEntity geCompaniesByPage(@PathVariable int page, @PathVariable int pageSize){
+        Pageable pageable = new PageRequest(page - 1, pageSize);
+
+        Page result = companyRepository.findAll(pageable);
+
+        return new ResponseEntity<>(result, HttpStatus.OK);
     }
 }
