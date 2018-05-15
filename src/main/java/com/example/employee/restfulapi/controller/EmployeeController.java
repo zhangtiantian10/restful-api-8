@@ -44,4 +44,11 @@ public class EmployeeController {
 
         return new ResponseEntity<>(result, HttpStatus.OK);
     }
+
+    @RequestMapping(value = "/male", method = RequestMethod.GET)
+    public ResponseEntity getMaleEmployees() {
+        List<Employee> employees = employeeRepository.findAllByGender("male");
+
+        return new ResponseEntity<>(employees, HttpStatus.OK);
+    }
 }
