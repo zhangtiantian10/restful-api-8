@@ -65,4 +65,11 @@ public class CompanyController {
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity deleteCompany(@PathVariable Long id) {
+        companyRepository.delete(id);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
 }
